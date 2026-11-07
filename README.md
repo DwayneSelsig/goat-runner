@@ -27,14 +27,13 @@ Open `project.godot` in Godot 4.7.2 and run the project. Godot 4.7.2 is also the
 
 ## Configure private assets for releases
 
-The release workflow checks out the private asset repository with a read-only deploy key and uses the exact commit pinned as `ASSET_COMMIT` in `.github/workflows/pages.yml`. Update that commit hash when intentionally releasing new assets. Public pull request validation uses only placeholders and does not access secrets.
+The release workflow checks out the private asset repository with a fine-grained, read-only token and uses the exact commit pinned as `ASSET_COMMIT` in `.github/workflows/pages.yml`. Update that hash when intentionally releasing new assets. Public pull request validation uses only placeholders and does not access secrets.
 
-1. Create a dedicated Ed25519 SSH key pair without a passphrase, outside both repositories; treat the private key as a secret.
-2. In `goat-runner-assets` under Settings > Deploy keys, add the public key without enabling write access.
-3. In `goat-runner` under Settings > Secrets and variables > Actions, create a repository secret named `ASSETS_DEPLOY_KEY` containing the entire private key, including its header and footer. Do not commit it.
-4. Under the public repository's Settings > Pages, set Source to GitHub Actions.
+1. Create a fine-grained personal access token limited to `goat-runner-assets` with repository Contents permission set to read-only. Choose an expiry date and renew the token before it expires.
+2. In `goat-runner` under Settings > Secrets and variables > Actions, create a repository secret named `ASSETS_READ_TOKEN` containing the token. Never commit or share it.
+3. Under the public repository's Settings > Pages, set Source to GitHub Actions.
 
-A release fails if the secret or a required private asset is missing. The private checkout and assembled source project are not uploaded, but the deployed web game necessarily delivers its graphical resources to players; asset extraction remains possible.
+The Pages workflow can be run manually from Actions to test private asset access and the full build without deploying. Changes to the Pages workflow on main trigger the same non-deploying validation. Only published releases upload and deploy a Pages artifact. A build fails if the secret or a required private asset is missing. The private checkout and assembled source project are not uploaded, but the deployed web game necessarily delivers its graphical resources to players; asset extraction remains possible.
 
 ## Publish on GitHub Pages
 
