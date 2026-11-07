@@ -1,0 +1,57 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/debug_menu.gd" id="1"]
+
+[node name="DebugMenu" type="CanvasLayer"]
+layer = 11
+script = ExtResource("1")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
+
+[node name="Menu" type="PanelContainer" parent="."]
+visible = false
+offset_left = 24.0
+offset_top = 110.0
+offset_right = 310.0
+offset_bottom = 235.0
+
+[node name="Buttons" type="VBoxContainer" parent="Menu"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Menu/Buttons"]
+layout_mode = 2
+text = "Debugmenu (Ctrl+D)"
+
+[node name="Zoom" type="Button" parent="Menu/Buttons"]
+layout_mode = 2
+focus_mode = 0
+text = "Zoom: normaal -> oog"
+
+[node name="Weather" type="Button" parent="Menu/Buttons"]
+layout_mode = 2
+focus_mode = 0
+text = "Toon / verberg weerinformatie"
+
+[node name="WeatherControls" type="Button" parent="Menu/Buttons"]
+layout_mode = 2
+focus_mode = 0
+text = "Weer instellen"
+
+[node name="Autoplay" type="Button" parent="Menu/Buttons"]
+layout_mode = 2
+focus_mode = 0
+text = "Zelfspelen: uit"
+
+[node name="WeatherPanel" type="PanelContainer" parent="."]
+visible = false
+offset_left = 330.0
+offset_top = 110.0
+offset_right = 990.0
+offset_bottom = 670.0
+
+[node name="WeatherText" type="TextEdit" parent="WeatherPanel"]
+layout_mode = 2
+editable = false
+wrap_mode = 1
+text = "Nog geen weerinformatie ontvangen."

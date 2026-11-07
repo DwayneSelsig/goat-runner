@@ -1,0 +1,441 @@
+[gd_scene load_steps=22 format=3]
+
+
+[ext_resource type="Texture2D" path="res://assets/characters/goat/parts/body.svg" id="body"]
+[ext_resource type="Texture2D" path="res://assets/characters/goat/parts/right_eye_open.svg" id="eye"]
+[ext_resource type="Texture2D" path="res://assets/characters/goat/parts/tail.svg" id="tail"]
+
+[sub_resource type="Animation" id="anim_base"]
+resource_name = "base"
+length = 1.0
+loop_mode = 1
+
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:scale")
+tracks/0/interp = 1
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -450)]
+}
+[sub_resource type="Animation" id="anim_kick"]
+resource_name = "kick"
+length = 1.0
+loop_mode = 1
+
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:scale")
+tracks/0/interp = 1
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -450)]
+}
+[sub_resource type="Animation" id="anim_transition_into_charge"]
+resource_name = "transition_into_charge"
+length = 1.0
+loop_mode = 1
+
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:scale")
+tracks/0/interp = 1
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -450)]
+}
+[sub_resource type="Animation" id="anim_transition_into_charge_hit"]
+resource_name = "transition_into_charge_hit"
+length = 1.0
+loop_mode = 1
+
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:scale")
+tracks/0/interp = 1
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -450)]
+}
+[sub_resource type="Animation" id="anim_transition_out_of_charge_run_sudden_brake"]
+resource_name = "transition_out_of_charge_run_sudden_brake"
+length = 1.0
+loop_mode = 1
+
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:scale")
+tracks/0/interp = 1
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -450)]
+}
+[sub_resource type="Animation" id="anim_charge"]
+resource_name = "charge"
+length = 1.0
+loop_mode = 1
+
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:scale")
+tracks/0/interp = 1
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 0.9)]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -250)]
+}
+[sub_resource type="Animation" id="anim_run"]
+resource_name = "run"
+length = 1.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:position")
+tracks/0/interp = 1
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -450), Vector2(0, -480), Vector2(0, -450)]
+}
+
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:scale")
+tracks/1/interp = 1
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+[sub_resource type="Animation" id="anim_die"]
+resource_name = "die"
+length = 1.0
+loop_mode = 1
+
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:scale")
+tracks/0/interp = 1
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -450)]
+}
+[sub_resource type="Animation" id="anim_transition_to_eat"]
+resource_name = "transition_to_eat"
+length = 1.0
+loop_mode = 1
+
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:scale")
+tracks/0/interp = 1
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -450)]
+}
+[sub_resource type="Animation" id="anim_eating"]
+resource_name = "eating"
+length = 1.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:position")
+tracks/0/interp = 1
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -450), Vector2(0, -456), Vector2(0, -450)]
+}
+
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:scale")
+tracks/1/interp = 1
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+[sub_resource type="Animation" id="anim_transition_from_eat"]
+resource_name = "transition_from_eat"
+length = 1.0
+loop_mode = 1
+
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:scale")
+tracks/0/interp = 1
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -450)]
+}
+[sub_resource type="Animation" id="anim_walk"]
+resource_name = "walk"
+length = 1.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:position")
+tracks/0/interp = 1
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -450), Vector2(0, -466), Vector2(0, -450)]
+}
+
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:scale")
+tracks/1/interp = 1
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+[sub_resource type="Animation" id="anim_idle"]
+resource_name = "idle"
+length = 1.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:position")
+tracks/0/interp = 1
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -450), Vector2(0, -456), Vector2(0, -450)]
+}
+
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:scale")
+tracks/1/interp = 1
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+[sub_resource type="Animation" id="anim_game_die"]
+resource_name = "game_die"
+length = 1.0
+loop_mode = 0
+
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:scale")
+tracks/0/interp = 1
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -450)]
+}
+[sub_resource type="Animation" id="anim_game_to_eat"]
+resource_name = "game_to_eat"
+length = 1.0
+loop_mode = 0
+
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:scale")
+tracks/0/interp = 1
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -450)]
+}
+[sub_resource type="Animation" id="anim_sock_line_stuck"]
+resource_name = "sock_line_stuck"
+length = 1.25
+loop_mode = 0
+
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:scale")
+tracks/0/interp = 1
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -450)]
+}
+[sub_resource type="Animation" id="anim_jump"]
+resource_name = "jump"
+length = 1.0
+loop_mode = 0
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:scale")
+tracks/0/interp = 1
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -450)]
+}
+
+[sub_resource type="AnimationLibrary" id="library"]
+_data = {
+&"base": SubResource("anim_base"),
+&"kick": SubResource("anim_kick"),
+&"transition_into_charge": SubResource("anim_transition_into_charge"),
+&"transition_into_charge_hit": SubResource("anim_transition_into_charge_hit"),
+&"transition_out_of_charge_run_sudden_brake": SubResource("anim_transition_out_of_charge_run_sudden_brake"),
+&"charge": SubResource("anim_charge"),
+&"run": SubResource("anim_run"),
+&"die": SubResource("anim_die"),
+&"transition_to_eat": SubResource("anim_transition_to_eat"),
+&"eating": SubResource("anim_eating"),
+&"transition_from_eat": SubResource("anim_transition_from_eat"),
+&"walk": SubResource("anim_walk"),
+&"idle": SubResource("anim_idle"),
+&"game_die": SubResource("anim_game_die"),
+&"game_to_eat": SubResource("anim_game_to_eat"),
+&"sock_line_stuck": SubResource("anim_sock_line_stuck"),
+&"jump": SubResource("anim_jump")
+}
+
+[node name="PlaceholderGoat" type="Node2D"]
+metadata/placeholder = "goat-runner-placeholder-v1"
+
+[node name="body" type="Sprite2D" parent="."]
+texture = ExtResource("body")
+position = Vector2(0, -450)
+scale = Vector2(1.5, 1.5)
+
+[node name="right_eye_open" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("eye")
+position = Vector2(-250, -150)
+
+[node name="tail" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("tail")
+position = Vector2(250, -100)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("library")
+}

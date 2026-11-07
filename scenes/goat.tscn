@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://d05e6vr7wbvqc"]
+
+[ext_resource type="PackedScene" path="res://scenes/goat_scml.tscn" id="scml_goat"]
+[ext_resource type="Script" uid="uid://d1a2xpv8whl8a" path="res://scripts/goat.gd" id="script"]
+
+[sub_resource type="RectangleShape2D" id="GoatShape"]
+size = Vector2(90, 55)
+
+[sub_resource type="RectangleShape2D" id="HeadShape"]
+size = Vector2(40, 50)
+
+[node name="Goat" type="CharacterBody2D" unique_id=569348818]
+script = ExtResource("script")
+
+[node name="Visual" parent="." unique_id=1498395762 instance=ExtResource("scml_goat")]
+position = Vector2(0, 19.5)
+scale = Vector2(-0.0884, 0.0884)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1280510269]
+visible = false
+position = Vector2(-6.25, -27.5)
+shape = SubResource("GoatShape")
+
+[node name="HeadCollision" type="CollisionShape2D" parent="."]
+position = Vector2(35, -75)
+shape = SubResource("HeadShape")

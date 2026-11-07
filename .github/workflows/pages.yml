@@ -1,0 +1,54 @@
+name: Deploy to GitHub Pages
+on:
+  release:
+    types: [published]
+permissions:
+  contents: read
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate release version
+        shell: pwsh
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          $tag = $env:RELEASE_TAG
+          if ($tag -notmatch '^v(?<version>\d+\.\d+\.\d+\.\d+)$') {
+            throw "Release tag '$tag' is invalid. Use v1.2.3.4."
+          }
+          try { $version = [Version]$Matches.version } catch {
+            throw "Release tag '$tag' contains an invalid version component."
+          }
+          if ($version.Major -gt 65534 -or $version.Minor -gt 65534 -or
+              $version.Build -gt 65534 -or $version.Revision -gt 65534) {
+            throw 'Every version component must be between 0 and 65534.'
+          }
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - uses: actions/configure-pages@v6.0.0
+      - name: Check public assets
+        run: python3 tools/check-public-assets.py
+      - name: Install Godot and matching export templates
+        run: bash tools/install-godot.sh
+      - name: Import, test and export
+        run: bash tools/build-web.sh
+      - uses: actions/upload-pages-artifact@v5.0.0
+        with:
+          path: build/web
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5.0.1

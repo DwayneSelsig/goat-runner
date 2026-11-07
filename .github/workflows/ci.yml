@@ -1,0 +1,18 @@
+name: Validate
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Check public assets
+        run: python3 tools/check-public-assets.py
+      - name: Install Godot and matching export templates
+        run: bash tools/install-godot.sh
+      - name: Import, test and export
+        run: bash tools/build-web.sh

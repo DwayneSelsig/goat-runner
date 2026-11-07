@@ -1,0 +1,12 @@
+# Godot-generated files
+.godot/
+/android/
+/build/
+
+# Local source artwork (extracted game assets are included)
+/assets/environment/source/
+
+# Local Python and test artifacts
+__pycache__/
+*.py[cod]
+/test-autoplay-highscore.tmp
