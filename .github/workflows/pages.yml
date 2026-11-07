@@ -4,6 +4,9 @@ on:
     types: [published]
 permissions:
   contents: read
+env:
+  # Pin the reviewed private assets so a release is reproducible.
+  ASSET_COMMIT: b2e52ad476b34838970784d36e4959f951b3d578
 concurrency:
   group: pages
   cancel-in-progress: false
@@ -30,16 +33,38 @@ jobs:
       - uses: actions/checkout@v7.0.1
         with:
           ref: ${{ github.event.release.tag_name }}
+          path: game
+          persist-credentials: false
       - uses: actions/configure-pages@v6.0.0
       - name: Check public assets
+        working-directory: game
         run: python3 tools/check-public-assets.py
+      - name: Check private asset access is configured
+        env:
+          ASSETS_DEPLOY_KEY: ${{ secrets.ASSETS_DEPLOY_KEY }}
+        run: |
+          if [ -z "$ASSETS_DEPLOY_KEY" ]; then
+            echo "::error::Set the ASSETS_DEPLOY_KEY Actions secret to a read-only deploy key for the private assets repository."
+            exit 1
+          fi
+      - name: Check out private assets
+        uses: actions/checkout@v7.0.1
+        with:
+          repository: DwayneSelsig/goat-runner-assets
+          ref: ${{ env.ASSET_COMMIT }}
+          ssh-key: ${{ secrets.ASSETS_DEPLOY_KEY }}
+          path: private-assets
+          persist-credentials: false
+      - name: Assemble game with licensed assets
+        run: python3 game/tools/prepare-private-build.py --assets private-assets --output assembled-game
       - name: Install Godot and matching export templates
-        run: bash tools/install-godot.sh
+        run: bash game/tools/install-godot.sh
       - name: Import, test and export
+        working-directory: assembled-game
         run: bash tools/build-web.sh
       - uses: actions/upload-pages-artifact@v5.0.0
         with:
-          path: build/web
+          path: assembled-game/build/web
   deploy:
     needs: build
     runs-on: ubuntu-latest

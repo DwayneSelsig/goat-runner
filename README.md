@@ -20,10 +20,21 @@ Autoplay uses normal collisions and scoring, including the saved high score. It 
 
 ## Run locally
 
-The public project contains independent placeholder artwork and a minimal goat scene. Licensed artwork and animation data are private. To assemble the licensed local build, place `goat-runner-assets` beside this project and run `python tools/prepare-private-build.py`, then open `../goat-runner-build/project.godot` in Godot 4.7.2. Run the script again after changes. Use `--assets` and `--output` for other directories. The assembled build is private; do not commit its source assets. Public CI and Pages currently export placeholders.
+The public project contains independent placeholder artwork and a minimal goat scene. Licensed artwork and animation data are private. To assemble the licensed local build, place `goat-runner-assets` beside this project and run `python tools/prepare-private-build.py`, then open `../goat-runner-build/project.godot` in Godot 4.7.2. Run the script again after changes. Use `--assets` and `--output` for other directories. The assembled build is private; do not commit its source assets. Public CI exports placeholders. Release deployments assemble the pinned private assets, as described below.
 
 
 Open `project.godot` in Godot 4.7.2 and run the project. Godot 4.7.2 is also the version used by CI and its matching Web export templates. See [testing](docs/TESTING.md) for a headless test and export.
+
+## Configure private assets for releases
+
+The release workflow checks out the private asset repository with a read-only deploy key and uses the exact commit pinned as `ASSET_COMMIT` in `.github/workflows/pages.yml`. Update that commit hash when intentionally releasing new assets. Public pull request validation uses only placeholders and does not access secrets.
+
+1. Create a dedicated Ed25519 SSH key pair without a passphrase, outside both repositories; treat the private key as a secret.
+2. In `goat-runner-assets` under Settings > Deploy keys, add the public key without enabling write access.
+3. In `goat-runner` under Settings > Secrets and variables > Actions, create a repository secret named `ASSETS_DEPLOY_KEY` containing the entire private key, including its header and footer. Do not commit it.
+4. Under the public repository's Settings > Pages, set Source to GitHub Actions.
+
+A release fails if the secret or a required private asset is missing. The private checkout and assembled source project are not uploaded, but the deployed web game necessarily delivers its graphical resources to players; asset extraction remains possible.
 
 ## Publish on GitHub Pages
 
