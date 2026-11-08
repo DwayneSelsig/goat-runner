@@ -8,9 +8,6 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
-env:
-  # Pin the reviewed private assets so a release is reproducible.
-  ASSET_COMMIT: b2e52ad476b34838970784d36e4959f951b3d578
 concurrency:
   group: pages
   cancel-in-progress: false
@@ -57,10 +54,15 @@ jobs:
         uses: actions/checkout@v7.0.1
         with:
           repository: DwayneSelsig/goat-runner-assets
-          ref: ${{ env.ASSET_COMMIT }}
+          # Omitting ref fetches the latest commit on the assets repository's default branch.
           token: ${{ secrets.ASSETS_READ_TOKEN }}
           path: private-assets
           persist-credentials: false
+      - name: Record private asset version
+        working-directory: private-assets
+        run: |
+          echo "### Private assets" >> "$GITHUB_STEP_SUMMARY"
+          echo "Commit: $(git rev-parse HEAD)" >> "$GITHUB_STEP_SUMMARY"
       - name: Assemble game with licensed assets
         run: python3 game/tools/prepare-private-build.py --assets private-assets --output assembled-game
       - name: Install Godot and matching export templates

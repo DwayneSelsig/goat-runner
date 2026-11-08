@@ -2,7 +2,7 @@
 
 ## Public and licensed assets
 
-The public project uses independent placeholder SVGs and a minimal goat scene. Licensed artwork, SCML and the generated animation scene are private. `tools/prepare-private-build.py` assembles an isolated local project using `tools/private-assets.json`. Source-specific animation tests run for the private build. Earlier entries describe the original artwork and private build. Release deployments assemble a pinned private-assets commit using a fine-grained read-only token; public CI continues to use placeholders.
+The public project uses independent placeholder SVGs and a minimal goat scene. Licensed artwork, SCML and the generated animation scene are private. `tools/prepare-private-build.py` assembles an isolated local project using `tools/private-assets.json`. Source-specific animation tests run for the private build. Earlier entries describe the original artwork and private build. Release deployments fetch the latest commit on the private assets repository's default branch using a fine-grained read-only token and record the resolved commit in the build summary. Asset updates need no workflow edit; reruns can pick up newer assets. Public CI continues to use placeholders.
 
 
 ## Native movement and simple visual style

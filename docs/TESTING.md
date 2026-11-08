@@ -168,7 +168,7 @@ A second reference comparison strengthened the trailing push-off and compact fli
 
 ## Public placeholders and private assembly
 
-The public build uses independently drawn placeholders. Run `python tools/check-public-assets.py` to check the public asset manifest before publication. The private assembly restores licensed files in an isolated project and runs the source-specific goat animation checks as well as gameplay tests. The Pages release workflow uses a pinned private-assets commit and a fine-grained read-only token.
+The public build uses independently drawn placeholders. Run `python tools/check-public-assets.py` to check the public asset manifest before publication. The private assembly restores licensed files in an isolated project and runs the source-specific goat animation checks as well as gameplay tests. The Pages release workflow fetches the latest private assets from their default branch with a fine-grained read-only token and records the resolved commit in the build summary. After updating assets, use the manual Pages workflow to validate the latest graphics without deploying; publish a release to deploy them.
 
 The public placeholder artwork was corrected for non-square textures, recognizable controls and obstacle silhouettes. Godot 4.7.2 imported the project and passed the interface, smoke and jump checks. Native stills of the start menu, settings, obstacles and collision were inspected. Interactive gameplay and browser testing were not performed for this visual revision.
 
